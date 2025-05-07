@@ -1,0 +1,49 @@
+
+
+#header{
+    background-color: #282c34;
+    padding: 20px;
+    color: white;
+    text-align: center;
+}
+#logout{
+   text-align: center;
+    font-size: 24px;
+    color: black;
+    text-decoration: bold;
+
+}
+#logout:hover{
+    color: #61dafb;
+    text-decoration: underline;
+
+    cursor: pointer;
+}
+#logout:active{
+    color: #21a1f1;
+    text-decoration: underline;
+}
+#budget{
+    display: flex;
+    flex-direction: row;
+}
+#new_expense{
+    display: flex;
+    flex-direction: row;
+    border: 3px solid green;
+}
+.expense{
+    display: flex;
+    border: 1px solid #ccc;
+    
+}
+.expense_item{
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    margin: 5px;
+}
+.form_container{
+    padding: 10px;
+    border: 3px solid green;
+}
