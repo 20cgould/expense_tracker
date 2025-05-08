@@ -1,9 +1,11 @@
-import React from "react";
+import React, { use } from "react";
 import { useEffect } from "react";
 import * as cookie from "cookie";
 import './index.css';
+import { useOutletContext } from "react-router-dom";
 
 export function New_Expense() {
+    const { change_total, total } = useOutletContext();
     
 
     const handleSubmit = async (event) => {
@@ -11,8 +13,10 @@ export function New_Expense() {
         const form = document.getElementById('new_expense_form');
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
-        
+        data.amount = parseInt(data.amount);
+          
         console.log(data);
+        console.log(JSON.stringify(data));
 
         try {
             const response = await fetch('http://localhost:8000/new_expense/', {
@@ -25,9 +29,11 @@ export function New_Expense() {
                 },
                 body: JSON.stringify(data),
             });
+            console.log(JSON.stringify(data));
 
             if (response.ok) {
                 console.log('Expense added successfully');
+                change_total(total + parseInt(data.amount));
                 window.location.href = '/';
             } else {
                 console.error('Failed to add expense');

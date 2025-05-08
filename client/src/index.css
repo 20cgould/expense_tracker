@@ -26,6 +26,14 @@
 #budget{
     display: flex;
     flex-direction: row;
+    border: 3px solid green;
+    color: green;
+}
+#total{
+    color: red;
+    display: flex;
+    flex-direction: row;
+    border: 3px solid red;
 }
 #new_expense{
     display: flex;

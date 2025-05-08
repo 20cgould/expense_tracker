@@ -11,6 +11,7 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from django.http import HttpResponse
 from django.forms.models import model_to_dict
+from django.core import serializers
 
 
 
@@ -35,9 +36,10 @@ def index(req):
 def new_expense(request):
     if request.method == 'POST':
         
-        data = json.loads(request.body)
+        data = json.loads(request.body.decode('utf-8'))
+        print("Raw data:", request.body)
         user = request.user
-        amount = data['amount']
+        amount = float(data['amount'])
         description = data['description']
         date = data['date']
         name = data['name']
@@ -143,8 +145,8 @@ def get_expenses(request):
         
         for expense in expenses:
             json_expense = model_to_dict(expense)
-            print(json_expense)
-            expense_list.append(json.dumps(json_expense, default=str))
+            json_expense['date'] = expense.date.isoformat()
+            expense_list.append(json_expense)
         return JsonResponse({'status': 'success', 'expenses': expense_list})
     else:
         return JsonResponse({'status': 'error', 'message': 'Invalid request method'})

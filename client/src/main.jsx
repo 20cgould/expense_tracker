@@ -35,6 +35,7 @@ function Main() {
   const [expenses, change_expenses] = useState([]);
   const [user,change_user] = useState("");
   const [budget,change_budget] = useState(0);
+  const [total,change_total] = useState(0);
 
 
 
@@ -70,12 +71,19 @@ function Main() {
         if (response.ok) {
           const data = await response.json();
           let expenses_list = data.expenses;
-          for(let i = 0; i < expenses_list.length; i++){
-            expenses_list[i] = JSON.parse(expenses_list[i]);
+          console.log(expenses_list);
+
+          let temporary_total = 0;
+
+          for(let expense in expenses_list){
+            temporary_total = temporary_total + parseFloat(expenses_list[expense].amount);
 
           }
 
+
           
+
+          change_total(temporary_total);
           change_expenses(expenses_list);
           console.log(expenses_list);
           
@@ -113,11 +121,12 @@ function Main() {
 
 
 
+
   
   return(
     <>
       <Heading user={user}/>
-      <Outlet context={{budget,expenses,change_budget,change_expenses}} />
+      <Outlet context={{budget,expenses,change_budget,change_expenses,total,change_total}} />
     </>
   );
 }
